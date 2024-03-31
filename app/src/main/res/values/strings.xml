@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">NAKOS</string>
+    <string name="app_name">NAKOS (Recipe)</string>
+    <string name="intro">Hi, Anak Kos! Bikin apa hari ini ?</string>
+    <string name="name">Nama menu</string>
+    <string name="alat">Alat</string>
+    <string name="bahan">Bahan</string>
+    <string name="makanan">Makanan</string>
+    <string name="minuman">Minuman</string>
+
 </resources>

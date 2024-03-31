@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">NAKOS</string>
+    <string name="intro">"Hi, Anak Kos! What are you doin today ? "</string>
+    <string name="name">Menu name</string>
+    <string name="alat">Tools</string>
+    <string name="bahan">Material</string>
+    <string name="makanan">Food</string>
+    <string name="minuman">Drink</string>
 </resources>
