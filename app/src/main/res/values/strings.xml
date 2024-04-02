@@ -1,10 +1,13 @@
 <resources>
-    <string name="app_name">NAKOS (Zodiac)</string>
+    <string name="app_name">NAKOSTAR</string>
     <string name="intro">Hi, what\'s your zodiac sign? Come on, predict yourself!</string>
     <string name="name">Name</string>
     <string name="date">Date</string>
-    <string name="year">Year</string>
+    <string name="month">Month</string>
     <string name="pria">Male</string>
     <string name="wanita">Female</string>
-
+    <string name="ramal">Predict</string>
+    <string name="virgo">Virgo</string>
+    <string name="taurus">Taurus</string>
+    <string name="invalid">It cannot be empty and must be a number, OK^^</string>
 </resources>
