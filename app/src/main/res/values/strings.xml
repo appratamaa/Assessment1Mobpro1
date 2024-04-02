@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">NAKOS (Recipe)</string>
-    <string name="intro">Hi, Anak Kos! Bikin apa hari ini ?</string>
-    <string name="name">Nama menu</string>
-    <string name="alat">Alat</string>
-    <string name="bahan">Bahan</string>
-    <string name="makanan">Makanan</string>
-    <string name="minuman">Minuman</string>
+    <string name="app_name">NAKOS (Zodiac)</string>
+    <string name="intro">Hi, what\'s your zodiac sign? Come on, predict yourself!</string>
+    <string name="name">Name</string>
+    <string name="date">Date</string>
+    <string name="year">Year</string>
+    <string name="pria">Male</string>
+    <string name="wanita">Female</string>
 
 </resources>
