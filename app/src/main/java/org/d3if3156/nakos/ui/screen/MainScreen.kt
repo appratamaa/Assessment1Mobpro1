@@ -35,6 +35,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -104,14 +105,14 @@ fun MainScreen(navController: NavHostController) {
 }
 @Composable
 fun ScreenContent(modifier: Modifier) {
-    var name by remember { mutableStateOf("") }
-    var nameError by remember { mutableStateOf(false) }
-    var zodiac by remember { mutableStateOf("") }
-    var zodiacError by remember { mutableStateOf(false) }
+    var name by rememberSaveable { mutableStateOf("") }
+    var nameError by rememberSaveable { mutableStateOf(false) }
+    var zodiac by rememberSaveable { mutableStateOf("") }
+    var zodiacError by rememberSaveable { mutableStateOf(false) }
 
 
-    var isChecked by remember { mutableStateOf(false) }
-    var zodiak by remember { mutableIntStateOf(0) }
+    var isChecked by rememberSaveable { mutableStateOf(false) }
+    var zodiak by rememberSaveable { mutableIntStateOf(0) }
 
     Column (
         modifier = modifier
