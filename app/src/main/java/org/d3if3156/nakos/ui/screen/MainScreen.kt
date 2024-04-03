@@ -1,5 +1,7 @@
 package org.d3if3156.nakos.ui.screen
 
+import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -18,12 +21,14 @@ import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.KeyboardArrowLeft
 import androidx.compose.material.icons.outlined.Menu
+import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
@@ -40,7 +45,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -61,11 +68,10 @@ fun MainScreen(navController: NavHostController) {
             TopAppBar(
                 navigationIcon = {
                     IconButton(onClick = {
-
                     }
                     ) {
                         Icon(
-                            imageVector = Icons.Outlined.Menu,
+                            imageVector = Icons.Outlined.Share,
                             contentDescription = stringResource(R.string.menu),
                             tint = MaterialTheme.colorScheme.inverseOnSurface
                         )
@@ -110,9 +116,16 @@ fun ScreenContent(modifier: Modifier) {
     var zodiac by rememberSaveable { mutableStateOf("") }
     var zodiacError by rememberSaveable { mutableStateOf(false) }
 
-
     var isChecked by rememberSaveable { mutableStateOf(false) }
     var zodiak by rememberSaveable { mutableIntStateOf(0) }
+
+    val context = LocalContext.current
+
+    val radioOptions = listOf(
+        stringResource(id = R.string.pria),
+        stringResource(id = R.string.wanita)
+    )
+    var gender by rememberSaveable { mutableStateOf(radioOptions[0]) }
 
     Column (
         modifier = modifier
@@ -157,28 +170,39 @@ fun ScreenContent(modifier: Modifier) {
             modifier = Modifier.fillMaxWidth()
         )
         Row (
-
             modifier = Modifier.padding(top = 6.dp)
         ) {
+            radioOptions.forEach { text ->
+                GenderOption(label = text,
+                    isSelected = gender == text,
+                    modifier = Modifier.selectable(
+                        selected = gender == text,
+                        onClick = { gender = text },
+                        role = Role.RadioButton
+                    )
+                        .weight(1f).padding(16.dp)
+                )
+            }
             Box(
-            modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center
         ) {
                 Switch(
-                    checked = isChecked,
-                    onCheckedChange = { isChecked = it },
-                    colors = SwitchDefaults.colors(
-                        checkedThumbColor = MaterialTheme.colorScheme.primary,
-                        checkedTrackColor = MaterialTheme.colorScheme.primaryContainer,
-                        uncheckedThumbColor = MaterialTheme.colorScheme.secondary,
-                    )
-
+                checked = isChecked,
+                onCheckedChange = { isChecked = it },
+                colors = SwitchDefaults.colors(
+                    checkedThumbColor = MaterialTheme.colorScheme.primary,
+                    checkedTrackColor = MaterialTheme.colorScheme.primaryContainer,
+                    uncheckedThumbColor = MaterialTheme.colorScheme.secondary,
                 )
+
+            )
                 Text(
                     text = if (isChecked) stringResource(R.string.wanita) else stringResource(R.string.pria),
                     style = MaterialTheme.typography.labelSmall,
                     color = Color.Black
                 )
+
                     Button(onClick = {
                          nameError = (name.isBlank() || name.any { it.isDigit() })
                          zodiacError = (zodiac.isBlank() || zodiac.any { it.isDigit() })
@@ -194,13 +218,29 @@ fun ScreenContent(modifier: Modifier) {
                     }
 
             }
+
         }
+
+    }
+
+}
+@Composable
+fun GenderOption(label: String, isSelected: Boolean, modifier: Modifier) {
+    Row (
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        RadioButton(selected = isSelected, onClick = null)
+        Text(text = label,
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.padding(start = 8.dp)
+        )
     }
 }
-//private fun getZodiak(zodiac: String, isMale: Boolean): Int {
+//private fun getZodiak(zodiaks: String, isMale: Boolean): Int {
 //    return if (isMale) {
 //        when {
-//            date < 20 -> R.string.virgo
+//            zodiaks > 20 -> R.string.virgo
 //            else -> R.string.name
 //
 //        }

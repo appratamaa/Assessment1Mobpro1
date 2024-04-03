@@ -8,14 +8,15 @@
     <string name="ramal">Predict</string>
     <string name="virgo">Virgo</string>
     <string name="taurus">Taurus</string>
-    <string name="invalid">It cannot be empty, ok!^^</string>
+    <string name="invalid">It cannot be empty, OK!^^</string>
     <string name="about">ABOUT</string>
-    <string name="apps">"NAKOSTAR merupakan aplikasi yang dikembangkan oleh Anak Kos dan Star yang berarti Bintang
-        \nAplikasi ini hanya sebagai hiburan semata untuk meramal diri berdasarkan zodiak atau bintang
-        \nAplikasi ini untuk memenuhi Assessment 1 Pemrograman Perangkat Bergerak 1     "</string>
+    <string name="apps">"NAKOSTAR merupakan aplikasi yang dikembangkan oleh Anak Kos dan Star yang berarti Bintang\nAplikasi ini hanya sebagai hiburan semata untuk meramal diri berdasarkan zodiak atau bintang\nAplikasi ini untuk memenuhi Assessment 1 Pemrograman Perangkat Bergerak 1     "</string>
     <string name="copyright">\n\n\n\n\n\n\n\n\n\nCopyright 2024 Andre Putra Pratama
     \nAll Rights</string>
     <string name="kembali">Back</string>
     <string name="menu">Menu</string>
     <string name="notifikasi">Notication</string>
+    <string name="bagikan">Share Your Luck</string>
+    <string name="percaya">Trust</string>
+    <string name="tidak">No</string>
 </resources>
