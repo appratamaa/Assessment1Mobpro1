@@ -16,6 +16,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.KeyboardArrowLeft
+import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -56,6 +58,18 @@ fun MainScreen(navController: NavHostController) {
     Scaffold (
         topBar = {
             TopAppBar(
+                navigationIcon = {
+                    IconButton(onClick = {
+
+                    }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Menu,
+                            contentDescription = stringResource(R.string.menu),
+                            tint = MaterialTheme.colorScheme.inverseOnSurface
+                        )
+                    }
+                    },
 
                 title = {
                     Text(
@@ -110,7 +124,7 @@ fun ScreenContent(modifier: Modifier) {
         Text(
             text = stringResource(id = R.string.intro),
             style = MaterialTheme.typography.bodyLarge,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.SemiBold,
             modifier = Modifier.fillMaxWidth(),
         )
 

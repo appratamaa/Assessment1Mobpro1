@@ -15,4 +15,7 @@
         \nAplikasi ini untuk memenuhi Assessment 1 Pemrograman Perangkat Bergerak 1     "</string>
     <string name="copyright">\n\n\n\n\n\n\n\n\n\nCopyright 2024 Andre Putra Pratama
     \nAll Rights</string>
+    <string name="kembali">Back</string>
+    <string name="menu">Menu</string>
+    <string name="notifikasi">Notication</string>
 </resources>
