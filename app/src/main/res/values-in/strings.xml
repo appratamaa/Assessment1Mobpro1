@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">NAKOSTAR</string>
-    <string name="intro">Hi, Zodiak mu apa? Yuk, ramal dirimu!</string>
+    <string name="intro">Hi, Zodiak kamu apa? Yuk, ramal dirimu!</string>
     <string name="name">Nama</string>
-    <string name="date">Tanggal Lahir</string>
+    <string name="zodiak">Zodiak</string>
     <string name="pria">Pria</string>
     <string name="wanita">Wanita</string>
-    <string name="month">Bulan</string>
     <string name="ramal">Ramal</string>
     <string name="virgo">Virgo</string>
     <string name="taurus">Taurus</string>
-    <string name="invalid">Tidak boleh kosong dan harus angka ya^^</string>
+    <string name="invalid">Tidak boleh kosong, ya!^^</string>
+    <string name="about">TENTANG</string>
+    <string name="apps">"NAKOSTAR merupakan aplikasi yang dikembangkan oleh Anak Kos dan Star yang berarti Bintang     Aplikasi ini hanya sebagai hiburan semata untuk meramal diri berdasarkan zodiak atau bintang       Aplikasi ini untuk memenuhi Assessment 1 Pemrograman Perangkat Bergerak 1     "</string>
+    <string name="copyright">"   Copyright 2024 Andre Putra Pratama      All Rights"</string>
 </resources>

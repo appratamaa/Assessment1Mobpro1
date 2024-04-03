@@ -10,15 +10,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
@@ -35,23 +38,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import org.d3if3156.nakos.R
+import org.d3if3156.nakos.navigation.Screen
 import org.d3if3156.nakos.ui.theme.NAKOSTheme
-import java.time.Month
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen() {
+fun MainScreen(navController: NavHostController) {
     Scaffold (
         topBar = {
             TopAppBar(
@@ -61,13 +62,25 @@ fun MainScreen() {
                         text = stringResource(id = R.string.app_name),
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.ExtraBold
+                        fontWeight = FontWeight.Black
                     )
         },
                 colors =  TopAppBarDefaults.mediumTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.scrim,
                     titleContentColor = MaterialTheme.colorScheme.inverseOnSurface
-                )
+                ),
+                        actions = {
+                    IconButton(onClick = {
+                        navController.navigate(Screen.About.route)
+                    }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Info,
+                            contentDescription = stringResource(R.string.about),
+                            tint = MaterialTheme.colorScheme.inverseOnSurface
+                        )
+                    }
+                }
             )
         }
     ) { padding ->
@@ -78,10 +91,10 @@ fun MainScreen() {
 @Composable
 fun ScreenContent(modifier: Modifier) {
     var name by remember { mutableStateOf("") }
-    var date by remember { mutableStateOf("") }
-    var dateError by remember { mutableStateOf(false) }
-    var month by remember { mutableStateOf("") }
-    var monthError by remember { mutableStateOf(false) }
+    var nameError by remember { mutableStateOf(false) }
+    var zodiac by remember { mutableStateOf("") }
+    var zodiacError by remember { mutableStateOf(false) }
+
 
     var isChecked by remember { mutableStateOf(false) }
     var zodiak by remember { mutableIntStateOf(0) }
@@ -105,6 +118,8 @@ fun ScreenContent(modifier: Modifier) {
             value = name,
             onValueChange = { name = it },
             label = { Text(text = stringResource(R.string.name)) },
+            trailingIcon = { IconPicker(nameError, "")},
+            supportingText = { ErrorHint(nameError)},
             singleLine = true,
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Text,
@@ -113,26 +128,14 @@ fun ScreenContent(modifier: Modifier) {
             shape = RoundedCornerShape(30.dp),
             modifier = Modifier.fillMaxWidth()
         )
-        OutlinedTextField(value = date,
-            onValueChange = { date = it},
-            label = { Text(text = stringResource(R.string.date))},
-            supportingText = { ErrorHint(dateError)},
+        OutlinedTextField(value = zodiac,
+            onValueChange = { zodiac = it},
+            label = { Text(text = stringResource(R.string.zodiak))},
+            trailingIcon = { IconPicker(zodiacError, "")},
+            supportingText = { ErrorHint(zodiacError)},
             singleLine = true,
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Number,
-                imeAction = ImeAction.Next
-            ),
-            shape = RoundedCornerShape(30.dp),
-            modifier = Modifier.fillMaxWidth()
-        )
-        OutlinedTextField(
-            value = month,
-            onValueChange = { month = it },
-            label = { Text(text = stringResource(R.string.month)) },
-            supportingText = { ErrorHint(monthError)},
-            singleLine = true,
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Number,
+                keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Done
             ),
             shape = RoundedCornerShape(30.dp),
@@ -162,9 +165,10 @@ fun ScreenContent(modifier: Modifier) {
                     color = Color.Black
                 )
                     Button(onClick = {
-                                     dateError = (date == "" || date == "A")
-                                     monthError = (month == "" || month == "A")
-                                     if (dateError || monthError) return@Button},
+                         nameError = (name.isBlank() || name.any { it.isDigit() })
+                         zodiacError = (zodiac.isBlank() || zodiac.any { it.isDigit() })
+                         return@Button
+                                     },
                         modifier = Modifier.padding(top = 80.dp),
                         contentPadding = PaddingValues(horizontal = 32.dp, vertical = 8.dp)
                     ) {
@@ -178,28 +182,28 @@ fun ScreenContent(modifier: Modifier) {
         }
     }
 }
-private fun getZodiak(date: Int, month: Int, isMale: Boolean): Int {
-    return if (isMale) {
-        when {
-            date < 20 -> R.string.virgo
-            month < 1 -> R.string.virgo
-            else -> R.string.name
-
-        }
-    } else {
-        when {
-            date > 20 -> R.string.taurus
-            month > 20 -> R.string.taurus
-            else -> R.string.name
-        }
-    }
-}
-//@Composable
-//fun IconPicker(isError: Boolean, unit: String) {
-//    if (isError) {
-//        Icon(Image)
+//private fun getZodiak(zodiac: String, isMale: Boolean): Int {
+//    return if (isMale) {
+//        when {
+//            date < 20 -> R.string.virgo
+//            else -> R.string.name
+//
+//        }
+//    } else {
+//        when {
+//            date > 20 -> R.string.taurus
+//            else -> R.string.name
+//        }
 //    }
 //}
+@Composable
+fun IconPicker(isError: Boolean, unit: String) {
+    if (isError) {
+        Icon(imageVector = Icons.Filled.Warning, contentDescription = null)
+    } else {
+        Text(text = unit)
+    }
+}
 @Composable
 fun ErrorHint(isError: Boolean) {
     if (isError) {
@@ -211,6 +215,6 @@ fun ErrorHint(isError: Boolean) {
 @Composable
 fun ScreenPreview() {
     NAKOSTheme {
-        MainScreen()
+        MainScreen(rememberNavController())
     }
 }
