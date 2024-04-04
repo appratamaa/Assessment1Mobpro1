@@ -2,15 +2,12 @@ package org.d3if3156.nakos.ui.screen
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.KeyboardArrowLeft
-import androidx.compose.material.icons.outlined.Notifications
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.KeyboardArrowRight
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -36,7 +33,7 @@ import org.d3if3156.nakos.ui.theme.NAKOSTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AboutScreen(navController: NavHostController) {
+fun Developer(navController: NavHostController) {
     Scaffold (
         topBar = {
             TopAppBar(
@@ -46,17 +43,16 @@ fun AboutScreen(navController: NavHostController) {
                     }
                     ) {
                         Icon(
-                            imageVector = Icons.Outlined.KeyboardArrowLeft,
-                            contentDescription = stringResource(R.string.kembali),
+                            imageVector = Icons.Outlined.Home,
+                            contentDescription = stringResource(R.string.home),
                             tint = MaterialTheme.colorScheme.inverseOnSurface
                         )
                     }
                 },
                 title = {
                     Text(
-                        text = stringResource(id = R.string.about),
-                        modifier = Modifier
-                            .fillMaxWidth().verticalScroll(rememberScrollState()),
+                        text = stringResource(id = R.string.developer),
+                        modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center,
                         fontWeight = FontWeight.Black
                     )
@@ -67,36 +63,29 @@ fun AboutScreen(navController: NavHostController) {
                 ),
                 actions = {
                     IconButton(onClick = {
-                        navController.navigate(Screen.Notification.route)
+                        navController.navigate(Screen.Home.route)
                     }
                     ) {
                         Icon(
-                            imageVector = Icons.Outlined.Notifications,
-                            contentDescription = stringResource(R.string.notifikasi),
-                            tint = MaterialTheme.colorScheme.inverseOnSurface
+                            imageVector = Icons.Outlined.KeyboardArrowRight,
+                            contentDescription = stringResource(R.string.kembali),
+                            tint = MaterialTheme.colorScheme.inverseOnSurface,
                         )
                     }
                 }
             )
         }
     ) { padding ->
-       Text(text = stringResource(R.string.apps),
-           modifier = Modifier
-               .padding(padding)
-               .padding(16.dp),
-           textAlign = TextAlign.Center,
-
-           )
-        Image(
-            painter = painterResource(R.drawable.zodiak2),
-            contentDescription = "",
-            contentScale = ContentScale.FillBounds,
+        Text(text = stringResource(R.string.andre),
             modifier = Modifier
                 .padding(padding)
-                .padding(130.dp)
-                .padding(top = 180.dp)
-                .size(140.dp)
-                .fillMaxSize(),
+                .padding(46.dp),
+            textAlign = TextAlign.Center,
+            )
+        Image(painter = painterResource(R.drawable.andre),
+            contentDescription = "",
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.padding(padding).padding(130.dp).padding(top = 60.dp).size(190.dp),
         )
         Text(text = stringResource(R.string.copyright),
             modifier = Modifier
@@ -105,15 +94,13 @@ fun AboutScreen(navController: NavHostController) {
             fontWeight = FontWeight.ExtraLight,
             textAlign = TextAlign.Center,
         )
-
     }
 }
-
 @Preview(showBackground = true)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)
 @Composable
-fun AboutScreenPreview() {
+fun DeveloperScreenPreview() {
     NAKOSTheme {
-        AboutScreen(rememberNavController())
+        Developer(rememberNavController())
     }
 }
